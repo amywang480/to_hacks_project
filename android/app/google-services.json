@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "996903022236",
+    "firebase_url": "https://quotes-2527e.firebaseio.com",
+    "project_id": "quotes-2527e",
+    "storage_bucket": "quotes-2527e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996903022236:android:911e8c3f05fde4b3b84759",
+        "android_client_info": {
+          "package_name": "com.example.tohacksproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996903022236-4536kila8v13tl57l99m209q4ulkvpku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTe1P9yapnDV9PVzpCqGRk1UwUJKG9Quk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996903022236-4536kila8v13tl57l99m209q4ulkvpku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
