@@ -74,6 +74,25 @@ class Mental extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container();
   }
+  int calculateMental(int moody, int sleepy){
+    int r = ((moody+sleepy)/2).round();
+    return r;
+  }
+  int calculateMood(int mood){
+    int q= 5*(mood +10);
+    return q;
+  }
+  int calculateSleep(int hours, int timesUp){
+    int a, b;
+    if((hours/8)>1){
+      a=100;
+    }
+    else{
+      a=(100*hours/8).round();
+    }
+    b = a - 12 * timesUp;
+    return b;
+  }
 }
 
 class Physical extends StatelessWidget {
