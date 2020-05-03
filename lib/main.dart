@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import './HomeTab.dart' as first;
-import './PhysicalTab.dart' as second;
-import './MentalTab.dart' as third;
 
 void main() {
   runApp(new MaterialApp(
@@ -15,22 +12,20 @@ class MyTabs extends StatefulWidget {
 }
 
 class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
-
-
   TabController controller;
-
+  Home home() => new Home();
+  Physical physical() => new Physical();
+  Mental mental() => new Mental();
   @override
   void initState() {
     super.initState();
     controller = new TabController(vsync: this, length: 3);
   }
-
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -41,12 +36,49 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
             bottom: new TabBar(
                 controller: controller,
                 tabs: <Tab>[
-                  new Tab(icon: new Icon(Icons.home), text: 'Home'),
-                  new Tab(icon: new Icon(Icons.directions_bike), text: 'Physical Health'),
-                  new Tab(icon: new Icon(Icons.favorite_border), text: 'Mental Health'),
+                  new Tab(
+                    text: 'Home',
+                    icon: new Icon(Icons.home)),
+                  new Tab(
+                      text: 'Physical Health',
+                      icon: new Icon(Icons.directions_bike)),
+                  new Tab(
+                      text: 'Mental Health',
+                      icon: new Icon(Icons.favorite_border)),
                 ]
             )
         ),
+      body: TabBarView(
+        controller: controller,
+        children: <Widget>[home().build(context), physical().build(context), mental().build(context)],
+      )
     );
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: Text('Fuck')
+    );
+  }
+  int calculateOverall(int ment, int phys){
+    int ove = ((ment+phys)/2).round();
+    return ove;
+  }
+}
+
+class Mental extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Container();
+  }
+}
+
+class Physical extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Container();
   }
 }
