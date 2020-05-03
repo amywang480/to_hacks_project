@@ -1,4 +1,11 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+Home home() => new Home();
+Physical physical() => new Physical();
+Mental mental() => new Mental();
 
 void main() {
   runApp(new MaterialApp(
@@ -13,9 +20,7 @@ class MyTabs extends StatefulWidget {
 
 class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   TabController controller;
-  Home home() => new Home();
-  Physical physical() => new Physical();
-  Mental mental() => new Mental();
+
   @override
   void initState() {
     super.initState();
@@ -60,7 +65,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: Text('Fuck')
+      color: Colors.orange,
+      child: Text('Overall Balance: '),
     );
   }
   int calculateOverall(int ment, int phys){
@@ -70,16 +76,69 @@ class Home extends StatelessWidget {
 }
 
 class Mental extends StatelessWidget {
+  int hourInput, timesInput, moodInput;
+  int currentSleep;
+  int currentMood;
+  int currentMental;
   @override
   Widget build(BuildContext context) {
-    return new Container();
+    return new Column(
+      children: <Widget>[
+        Container(
+          color: Colors.orange,
+          child: Text("Please enter the number of hours you slept below: "),
+        ),
+        Container(
+          color: Colors.orange,
+          child: TextField(onSubmitted: (hourly) {setHourly(int.parse(hourly));},)
+          ),
+        Container(
+          color: Colors.orange,
+          child: Text("Please indicate the number of times you got up during the night: "),
+        ),
+        Container(
+          color:Colors.orange,
+          child: TextField(onSubmitted: (nightly) {setNightly(int.parse(nightly));},)
+        ),
+        Container(
+          color: Colors.orange,
+          child: Text("Please enter your mood on a scale of 0-10: "),
+        ),
+        Container(
+          color:Colors.orange,
+          child: TextField(onSubmitted: (moodE) {setMoodE(int.parse(moodE));},)
+        ),
+        Container(
+          color:Colors.orange,
+          child: RaisedButton(
+              onPressed: () => calculate(),
+              child: new Text("Calculate")),
+        ),
+        Container(
+          color:Colors.orange,
+          child: _mentalityState().build(context),
+        ),
+        ],
+      );
+  }
+  void setHourly(int hrs){
+    hourInput = hrs;
+    print(hourInput);
+  }
+  void setNightly(int nghtly){
+    timesInput = nghtly;
+    print(timesInput);
+  }
+  void setMoodE(int mdE){
+    moodInput = mdE;
+    print(moodInput);
   }
   int calculateMental(int moody, int sleepy){
     int r = ((moody+sleepy)/2).round();
     return r;
   }
   int calculateMood(int mood){
-    int q= 5*(mood +10);
+    int q= 10*(mood);
     return q;
   }
   int calculateSleep(int hours, int timesUp){
@@ -91,7 +150,55 @@ class Mental extends StatelessWidget {
       a=(100*hours/8).round();
     }
     b = a - 12 * timesUp;
+    if(b<0){
+      b=0;
+    }
     return b;
+  }
+  void calculate(){
+    currentSleep = calculateSleep(hourInput, timesInput);
+    currentMood = calculateMood(moodInput);
+    currentMental = calculateMental(currentMood, currentSleep);
+    print(currentSleep);
+    print(currentMood);
+    print(currentMental);
+  }
+}
+
+class mentality extends StatefulWidget {
+  _mentalityState createState() => _mentalityState();
+}
+class _mentalityState extends State<mentality>{
+  @override
+  Widget build(BuildContext context){
+    return new Column(
+      children: <Widget>[
+        Container(
+            color:Colors.orange,
+            child: Text("Your Sleep Score out of 100: ")
+        ),
+        Container(
+          color:Colors.orange,
+          child: Text(mental().currentSleep.toString()),
+        ),
+        Container(
+            color:Colors.orange,
+            child: Text("Your Mood Score out of 100: ")
+        ),
+        Container(
+          color:Colors.orange,
+          child: Text(mental().currentMood.toString()),
+        ),
+        Container(
+            color:Colors.orange,
+            child: Text("Overall Mental Health Score out of 100: ")
+        ),
+        Container(
+          color:Colors.orange,
+          child: Text(mental().currentMental.toString()),
+        ),
+      ],
+    );
   }
 }
 
